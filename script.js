@@ -12,6 +12,9 @@ function addBookToLibrary(book) {
 }
 
 function displayLibrary() {
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild)
+    }
     myLibrary.forEach((book) => {
         let newRow = document.createElement("tr");
         for (let key in book) {
@@ -21,6 +24,30 @@ function displayLibrary() {
         }
         tableBody.appendChild(newRow);
     });
+}
+
+function createNewBook() {
+    let titleField = document.querySelector("#title");
+    title = titleField.value;
+    let authorField = document.querySelector("#author");
+    author = authorField.value;
+    let pagesField = document.querySelector("#pages");
+    pages = pagesField.value;
+    let checkbox = document.querySelector("#status");
+    let checkboxStatus;
+    if (checkbox.checked) {
+        checkboxStatus = "Read"
+    } else {
+        checkboxStatus = "Not read"
+    }
+    newBook = new Book(title, author, pages, checkboxStatus);
+    addBookToLibrary(newBook);
+    displayLibrary();
+    titleField.value = "";
+    authorField.value = "";
+    pagesField.value = "";
+    form.classList.remove("active");
+    checkbox.checked = false;
 }
 
 // Initial books to display
@@ -38,3 +65,7 @@ let form = document.querySelector(".add-book-form");
 formButton.addEventListener("click", () => {
     form.classList.add("active")
 })
+
+let bookButton = document.querySelector(".submit-book-btn")
+
+bookButton.addEventListener("click", createNewBook)
