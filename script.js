@@ -14,16 +14,20 @@ function addBookToLibrary(book) {
 function displayLibrary() {
     myLibrary.forEach((book) => {
         let newRow = document.createElement("tr");
-        let authorElement = document.createElement("td");
-        authorElement.textContent = `${book.author}`
-        newRow.appendChild(authorElement)
-        tableBody.appendChild(newRow)
+        for (let key in book) {
+            let rowElement = document.createElement("td");
+            rowElement.textContent = `${book[key]}`;
+            newRow.appendChild(rowElement);
+        }
+        tableBody.appendChild(newRow);
     });
 }
 
-let book1 = new Book("The Hobbit", "J.R.R. Martin", 500, "read");
+let book1 = new Book("The Hobbit", "J.R.R. Martin", 500, "Read");
+let book2 = new Book("Harry Potter", "JK Rowling", 372, "Read")
 
 addBookToLibrary(book1);
+addBookToLibrary(book2);
 
 let tableBody = document.querySelector(".table-body")
 
