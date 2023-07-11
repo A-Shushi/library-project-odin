@@ -23,12 +23,18 @@ function displayLibrary() {
     });
 }
 
+// Initial books to display
 let book1 = new Book("The Hobbit", "J.R.R. Martin", 500, "Read");
-let book2 = new Book("Harry Potter", "JK Rowling", 372, "Read")
-
+let book2 = new Book("Harry Potter", "JK Rowling", 372, "Read");
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 
 let tableBody = document.querySelector(".table-body")
 
 displayLibrary();
+
+let formButton = document.querySelector(".add-book-btn");
+let form = document.querySelector(".add-book-form");
+formButton.addEventListener("click", () => {
+    form.classList.add("active")
+})
