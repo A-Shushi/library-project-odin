@@ -4,3 +4,14 @@
     box-sizing: border-box;
 }
 
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+th, td {
+    width: 20ch;
+    height: 2rem;
+    border: 1px solid black;
+    text-align: center;
+}
