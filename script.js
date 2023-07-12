@@ -1,4 +1,4 @@
-let myLibrary = []
+let myLibrary = [];
 
 function Book(title, author, pages, readStatus) {
     this.title = title;
@@ -13,8 +13,9 @@ function addBookToLibrary(book) {
 
 function displayLibrary() {
     while (tableBody.firstChild) {
-        tableBody.removeChild(tableBody.firstChild)
+        tableBody.removeChild(tableBody.firstChild);
     }
+    let i = 0;
     myLibrary.forEach((book) => {
         let newRow = document.createElement("tr");
         for (let key in book) {
@@ -22,7 +23,23 @@ function displayLibrary() {
             rowElement.textContent = `${book[key]}`;
             newRow.appendChild(rowElement);
         }
+        buttonElement = document.createElement("td");
+        deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-btn");
+        deleteButton.textContent = "X";
+        deleteButton.setAttribute("data-array", i);
+        buttonElement.appendChild(deleteButton);
+        newRow.appendChild(buttonElement);
         tableBody.appendChild(newRow);
+        i++;
+    });
+    let deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            let index = button.getAttribute("data-array");
+            myLibrary.splice(index, 1);
+            displayLibrary();
+        });
     });
 }
 
@@ -36,9 +53,9 @@ function createNewBook() {
     let checkbox = document.querySelector("#status");
     let checkboxStatus;
     if (checkbox.checked) {
-        checkboxStatus = "Read"
+        checkboxStatus = "Read";
     } else {
-        checkboxStatus = "Not read"
+        checkboxStatus = "Not read";
     }
     newBook = new Book(title, author, pages, checkboxStatus);
     addBookToLibrary(newBook);
@@ -56,16 +73,25 @@ let book2 = new Book("Harry Potter", "JK Rowling", 372, "Read");
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 
-let tableBody = document.querySelector(".table-body")
+let tableBody = document.querySelector(".table-body");
 
 displayLibrary();
 
 let formButton = document.querySelector(".add-book-btn");
 let form = document.querySelector(".add-book-form");
 formButton.addEventListener("click", () => {
-    form.classList.add("active")
-})
+    form.classList.add("active");
+});
 
-let bookButton = document.querySelector(".submit-book-btn")
+let bookButton = document.querySelector(".submit-book-btn");
 
-bookButton.addEventListener("click", createNewBook)
+bookButton.addEventListener("click", createNewBook);
+
+// let deleteButtons = document.querySelectorAll(".delete-btn")
+// deleteButtons.forEach((button) => {
+//     button.addEventListener("click", () => {
+//         let index = button.getAttribute("data-array");
+//         myLibrary.splice(index, 1);
+//         displayLibrary();
+//     })
+// })
