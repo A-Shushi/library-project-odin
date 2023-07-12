@@ -24,6 +24,11 @@ function displayLibrary() {
             newRow.appendChild(rowElement);
         }
         buttonElement = document.createElement("td");
+        changeButton = document.createElement("button");
+        changeButton.classList.add("change-btn");
+        changeButton.textContent = "Status";
+        changeButton.setAttribute("data-array", i);
+        buttonElement.appendChild(changeButton);
         deleteButton = document.createElement("button");
         deleteButton.classList.add("delete-btn");
         deleteButton.textContent = "X";
@@ -39,6 +44,19 @@ function displayLibrary() {
             let index = button.getAttribute("data-array");
             myLibrary.splice(index, 1);
             displayLibrary();
+        });
+    });
+    let changeButtons = document.querySelectorAll(".change-btn");
+    changeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            let index = button.getAttribute("data-array");
+            book = myLibrary[index];
+            if (book.readStatus === "Read") {
+                book.readStatus = "Not Read";
+            } else {
+                book.readStatus = "Read"
+            }
+            displayLibrary()
         });
     });
 }
@@ -86,12 +104,3 @@ formButton.addEventListener("click", () => {
 let bookButton = document.querySelector(".submit-book-btn");
 
 bookButton.addEventListener("click", createNewBook);
-
-// let deleteButtons = document.querySelectorAll(".delete-btn")
-// deleteButtons.forEach((button) => {
-//     button.addEventListener("click", () => {
-//         let index = button.getAttribute("data-array");
-//         myLibrary.splice(index, 1);
-//         displayLibrary();
-//     })
-// })
